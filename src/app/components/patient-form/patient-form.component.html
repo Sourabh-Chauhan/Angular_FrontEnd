@@ -1,0 +1,96 @@
+<h1 *ngIf="!isSubmitted">Patient Registrations Form</h1>
+
+<form (ngSubmit)="OnSubmit()" [formGroup]="regForm" *ngIf="!isSubmitted">
+  <div class="form-control col-md-6 mb-3">
+    <label for="name" class="form-label">Patient Name</label>
+    <input
+      [ngClass]="{
+        'is-invalid':
+          regForm.controls['name'].touched && regForm.controls['name'].errors
+      }"
+      formControlName="name"
+      type="text"
+      name="name"
+      class="form-control"
+      id="name"
+      placeholder="Name"
+    />
+
+    <div class="invalid-feedback">
+      User Name must be have atleast 5 characters
+    </div>
+  </div>
+
+  <div class="form-control col-md-2 mb-3">
+    <label for="age" class="form-label">Age</label>
+    <input
+      [ngClass]="{
+        'is-invalid':
+          regForm.controls['age'].touched && regForm.controls['age'].errors
+      }"
+      formControlName="age"
+      type="number"
+      name="age"
+      class="form-control"
+      id="age"
+      placeholder="Age"
+    />
+    <div class="invalid-feedback">Age must be valid</div>
+  </div>
+
+  <div class="form-control col-md-6 mb-3">
+    <label>Doctor Name</label>
+    <select
+      class="form-select"
+      aria-label="Default select example"
+      style="display: block"
+      formControlName="visitedDoctorID"
+    >
+      <option *ngFor="let Doctor of AllDoctor" [value]="Doctor.id">
+        {{ Doctor.name }}
+      </option>
+    </select>
+  </div>
+
+  <div class="form-control col-md-6 mb-3">
+    <label for="dateOfVist" class="form-label">Date Of Vist</label>
+    <input
+      formControlName="dateOfVist"
+      type="text"
+      name="dateOfVist"
+      class="form-control"
+      id="dateOfVist"
+      placeholder="dateOfVist"
+      [readonly]="true"
+    />
+  </div>
+
+  <div class="d-grid gap-2">
+    <input
+      type="submit"
+      value="Submit"
+      id="submit"
+      class="btn btn-primary btn-block"
+      [disabled]="!regForm.valid"
+      style="margin-bottom: 2rem"
+    />
+  </div>
+</form>
+
+<div *ngIf="isSubmitted" class="text-center flex-column">
+  <h1>Patient Info Submitted</h1>
+  <img
+    class="mx-auto d-block"
+    src="../../../assets/icons8-checkmark-500.png"
+    alt="Patient Info Submitted img"
+  />
+  <button type="button" class="btn btn-primary" (click)="onReset()">
+    Add New Patient
+  </button>
+</div>
+
+<!-- <p>{{ AllDoctor | json }}</p>
+
+<p>{{ regForm.value | json }}</p> -->
+
+<!-- <p style="display: none">{{ dateTime | async | date: "medium" }}</p> -->

@@ -1,0 +1,127 @@
+<h1 *ngIf="!isSubmitted">Doctor Registrations Form</h1>
+<form (ngSubmit)="OnSubmit()" [formGroup]="regForm" *ngIf="!isSubmitted">
+  <div class="form-control col-md-6 mb-3">
+    <label for="name" class="form-label">Name</label>
+    <input
+      [ngClass]="{
+        'is-invalid':
+          regForm.controls['name'].touched && regForm.controls['name'].errors
+      }"
+      formControlName="name"
+      type="text"
+      name="name"
+      class="form-control"
+      id="name"
+      placeholder="Name"
+    />
+
+    <div class="invalid-feedback">
+      User Name must be have atleat 5 characters
+    </div>
+  </div>
+
+  <div class="form-control col-md-2 mb-3">
+    <label for="age" class="form-label">Age</label>
+    <input
+      [ngClass]="{
+        'is-invalid':
+          regForm.controls['age'].touched && regForm.controls['age'].errors
+      }"
+      formControlName="age"
+      type="number"
+      name="age"
+      class="form-control"
+      id="age"
+      placeholder="Age"
+    />
+
+    <div class="invalid-feedback">Age must be valid</div>
+  </div>
+
+  <div class="form-control col-md-6 mb-3">
+    <div
+      [ngClass]="{
+        'is-invalid':
+          regForm.controls['gender'].touched &&
+          regForm.controls['gender'].errors
+      }"
+    >
+      <label for="genders" class="control-label px-2">Genders</label>
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="gender"
+          value="Male"
+          formControlName="gender"
+        />
+        <label class="form-check-label">Male</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="gender"
+          value="Female"
+          formControlName="gender"
+        />
+        <label class="form-check-label">Female</label>
+      </div>
+
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="gender"
+          value="Other"
+          formControlName="gender"
+        />
+        <label class="form-check-label">Other</label>
+      </div>
+    </div>
+
+    <div class="invalid-feedback">Select Any Given Option</div>
+  </div>
+
+  <div class="form-control col-md-6 mb-3">
+    <label for="specialist" class="form-label">Specialist</label>
+    <input
+      [ngClass]="{
+        'is-invalid':
+          regForm.controls['specialist'].touched &&
+          regForm.controls['specialist'].errors
+      }"
+      formControlName="specialist"
+      type="text"
+      name="specialist"
+      class="form-control"
+      id="specialist"
+      placeholder="Specialist"
+    />
+
+    <div class="invalid-feedback">Specialist Required</div>
+  </div>
+
+  <div class="d-grid gap-2">
+    <input
+      type="submit"
+      value="Submit"
+      id="submit"
+      class="btn btn-primary btn-block"
+      [disabled]="!regForm.valid"
+      style="margin-bottom: 2rem"
+    />
+  </div>
+</form>
+
+<div *ngIf="isSubmitted" class="text-center flex-column">
+  <h1>Doctor Info Submitted</h1>
+  <img
+    class="mx-auto d-block"
+    src="../../../assets/icons8-checkmark-500.png"
+    alt="Patient Info Submitted img"
+  />
+  <button type="button" class="btn btn-primary" (click)="onReset()">
+    Add New Doctor
+  </button>
+</div>

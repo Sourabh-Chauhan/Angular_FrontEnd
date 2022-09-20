@@ -1,0 +1,61 @@
+<form [formGroup]="regForm">
+  <h3 class="info"><u>Select the Doctor </u></h3>
+  <div class="form-control col-md-6 mb-3">
+    <label>Doctor Name</label>
+    <select
+      class="form-select"
+      aria-label="Default select example"
+      style="display: block"
+      formControlName="Index"
+      (change)="onChange($event)"
+    >
+      <option *ngFor="let Doctor of AllDoctor; let i = index" [value]="i">
+        {{ Doctor.name }} ({{ Doctor.id }})
+      </option>
+    </select>
+  </div>
+</form>
+
+<div class="info" *ngIf="selectedDoctor || AllDoctor.length > 0">
+  <h1>Doctor Info</h1>
+  <table class="table table-striped table-hover table-dark table-bordered">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Specialistion Field</th>
+        <th>No. of Patient Attended</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td id="doc_id">{{ selectedDoctor.id | titlecase }}</td>
+        <td id="doc_name">{{ selectedDoctor.name | titlecase }}</td>
+        <td id="doc_specialist">{{ selectedDoctor.specialist | titlecase }}</td>
+        <td id="doc_nopa">{{ selectedDoctor.numberOfpatientAttened }}</td>
+
+        <td>
+          <fa-icon
+            [ngStyle]="{ margin: '10px', cursor: 'pointer' }"
+            [icon]="faUserEdit"
+            (click)="editDoctor(selectedDoctor)"
+            placement="bottom"
+            ngbTooltip="Edit"
+          ></fa-icon>
+          <fa-icon
+            [ngStyle]="{ color: 'red', margin: '10px', cursor: 'pointer' }"
+            [icon]="faTimes"
+            (click)="deleteDoctor(selectedDoctor)"
+            placement="bottom"
+            ngbTooltip="Delete"
+          ></fa-icon>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="info" *ngIf="AllDoctor.length == 0">
+  <p>NO doctor</p>
+</div>

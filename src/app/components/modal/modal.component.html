@@ -1,0 +1,38 @@
+<div class="modal-header" *ngIf="data.length > 0">
+  <h4 class="modal-title">{{ heading }}</h4>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="activeModal.dismiss('Cross click')"
+  ></button>
+</div>
+<div class="modal-body">
+  <table class="table table-striped table-hover table-bordered">
+    <thead class="table-dark">
+      <tr>
+        <th>#</th>
+        <th>Meds Name</th>
+        <th>Dose</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let med of data; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ med["medication"] }}</td>
+        <td>{{ med["dose"] }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- <p>{{ data | json }}</p> -->
+</div>
+<div class="modal-footer">
+  <button
+    type="button"
+    class="btn btn-outline-dark"
+    (click)="activeModal.close('Close click')"
+  >
+    Close
+  </button>
+</div>
