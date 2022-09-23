@@ -44,45 +44,15 @@ export class PatientInfoComponent implements OnInit {
   OnChangePatientID(patientID: any): void {
     this.errorMessage = '';
 
-    /*
-    console.log(this.regForm.controls['Index'].value);
-    this.patientService
-      .getPatient(this.regForm.controls['patientID'].value)
-      .subscribe(
-        (patient) => {
-          console.log(patient);
-          this.selectedPatient = patient;
-        },
-        (error) => {
-          this.errorMessage = error.message;
-          console.log(error.message);
-        }
-      );
-
-    this.patientService.getPatient(patientID).subscribe({
-      next: (patient) => {
-        console.log(patient);
-        this.selectedPatient = patient;
-      },
-      error: (e) => console.error(e),
-      complete: () => console.info('complete'),
-     });
-     */
-
     this.selectedPatient = null;
     if (patientID && !this.regForm.controls['patientID'].errors) {
-      //console.log(patientID);
-      //this.updateDebouncedRequest();
-
       this.patientService.getPatient(patientID).subscribe({
         next: (patient) => {
-          //console.log(patient);
           this.errorMessage = '';
           this.selectedPatient = patient;
 
           this.doctorService.getDoctorByID(patient.visitedDoctorID).subscribe({
             next: (doctor) => {
-              //console.log(doctor);
               this.selectedDoctor = doctor;
             },
             error: (e) => {
@@ -100,48 +70,6 @@ export class PatientInfoComponent implements OnInit {
       });
     }
   }
-
-  /*
-
-  updateDebouncedRequest = this.debounce(() => {
-    this.patientService
-      .getPatient(this.regForm.controls['patientID'].value)
-      .subscribe({
-        next: (patient) => {
-          this.selectedPatient = patient;
-          console.log(this.selectedPatient);
-
-          this.doctorService.getDoctorByID(patient.visitedDoctorID).subscribe({
-            next: (doctor) => {
-              this.selectedDoctor = doctor;
-            },
-            error: (e) => {
-              console.error(e);
-              this.errorMessage = e.message;
-            },
-            complete: () => console.info('complete'),
-          });
-
-          this.errorMessage = '';
-        },
-        error: (e) => {
-          console.error(e);
-          this.errorMessage = e.message;
-        },
-        complete: () => console.info('complete'),
-      });
-  });
-
-  debounce(cb: any, delay = 1000) {
-    let timeout: any;
-    return (...args: any[]): any => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => {
-        cb(...args);
-      }, delay);
-    };
-  }
-  */
 
   ngOnInit(): void {}
 
@@ -165,9 +93,7 @@ export class PatientInfoComponent implements OnInit {
 
   open(patient: Patient) {
     console.log('Open Prescription modal for  :', patient.name);
-    const modalRef = this.modalService.open(
-      ModalComponent /*, { centered: true }*/
-    );
+    const modalRef = this.modalService.open(ModalComponent);
     modalRef.componentInstance.heading = 'Prescription';
     modalRef.componentInstance.data = [
       { medication: 'AAAAAAAAAA', dose: 1 },

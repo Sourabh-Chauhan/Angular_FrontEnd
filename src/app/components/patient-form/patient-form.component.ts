@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { map, Observable, timer } from 'rxjs';
 import { DoctorService } from 'src/app/services/doctor.service';
 import { PatientService } from 'src/app/services/patient.service';
 import { Doctor } from 'src/app/shared/utils/Doctor';
@@ -25,7 +24,7 @@ export class PatientFormComponent implements OnInit {
   ) {
     this.regForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(5)]],
-      age: ['', [Validators.required]],
+      age: ['', [Validators.required, Validators.min(0)]],
       visitedDoctorID: ['', [Validators.required]],
       dateOfVist: ['', [Validators.required]],
     });
